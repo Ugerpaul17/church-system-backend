@@ -2,7 +2,7 @@ const Member = require("./../models/memberModel");
 const catchAsync = require("./../utile/catchAsync");
 const AppError = require("./../utile/appError");
 
-exports.getAllMemebers = catchAsync(async (req, res, next) => {
+exports.getAllMembers = catchAsync(async (req, res, next) => {
   const members = await Member.find();
   res.status(200).json({
     status: "success",

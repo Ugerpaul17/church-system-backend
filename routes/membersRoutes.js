@@ -6,14 +6,14 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(memberController.getAllMemebers)
+  .get(memberController.getAllMembers)
   .post(memberController.createMember);
 
 router
   .route("/:id")
   .get(authController.protect, memberController.getMember)
-  .patch(memberController.updateMember)
-  .delete(memberController.deleteMember);
+  .patch(authController.protect, memberController.updateMember)
+  .delete(authController.protect, memberController.deleteMember);
 
 
 module.exports = router; 
