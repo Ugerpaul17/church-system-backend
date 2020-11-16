@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const memberSchema = new mongoose.Schema({
   firstName: {
@@ -11,17 +11,17 @@ const memberSchema = new mongoose.Schema({
     required: [true, "A member must have a Last Name"],
     trim: true,
   },
-  departmemt: String,
+  department: String,
   program: String,
   yearEnrolled: Number,
   yearGraduated: Number,
   phoneNumber: Number,
- country: String,
- createdAt: {
- type: Date,
- default: Date.now()
-},
+  country: String,
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
-const Member = mongoose.model('Member', memberSchema);
+const Member = mongoose.model("Member", memberSchema);
 
 module.exports = Member;

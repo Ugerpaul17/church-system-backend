@@ -1,19 +1,22 @@
-const express = require('express');
-const memberController = require('./../controllers/membersController');
-const authController = require('./../controllers/authController');
+const express = require("express");
+const memberController = require("./../controllers/membersController");
+const authController = require("./../controllers/authController");
 
 const router = express.Router();
 
 router
   .route("/")
-  .get(memberController.getAllMembers)
+  .get(authController.protect, memberController.getAllMembers)
   .post(memberController.createMember);
 
 router
   .route("/:id")
-  .get(authController.protect, memberController.getMember)
-  .patch(authController.protect, memberController.updateMember)
-  .delete(authController.protect, memberController.deleteMember);
+  .get(memberController.getMember)
+  .patch(memberController.updateMember)
+  .delete(
+    authController.protect,
+    authController.restrictTo("admin"),
+    memberController.deleteMember
+  );
 
-
-module.exports = router; 
+module.exports = router;

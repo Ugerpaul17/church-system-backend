@@ -1,11 +1,10 @@
-const mongoose = require('mongoose');
-
+const mongoose = require("mongoose");
 
 const attendanceSchema = new mongoose.Schema({
   service: {
     type: String,
     required: [true, "Attendance must have a service"],
-    enum: ['Sunday Service', 'Bible Study', 'Revival Service'],
+    enum: ["Sunday Service", "Bible Study", "Revival Service"],
   },
   attendance: {
     type: Number,
@@ -16,6 +15,6 @@ const attendanceSchema = new mongoose.Schema({
   },
 });
 
-const Attendance = mongoose.model('Attendance', attendanceSchema);
+const Attendance = mongoose.model("Attendance", attendanceSchema);
 
 module.exports = Attendance;

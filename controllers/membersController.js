@@ -17,7 +17,7 @@ exports.getMember = catchAsync(async (req, res, next) => {
   const member = await Member.findById(req.params.id);
 
   if (!member) {
-    return next(new AppError('No member found with that ID', 404));   
+    return next(new AppError("No member found with that ID", 404));
   }
   res.status(200).json({
     status: "success",
@@ -33,10 +33,10 @@ exports.updateMember = catchAsync(async (req, res, next) => {
     runValidators: true,
   });
 
-    if (!member) {
-      return next(new AppError("No member found with that ID", 404));
+  if (!member) {
+    return next(new AppError("No member found with that ID", 404));
   }
-  
+
   res.status(201).json({
     status: "success",
     data: {
@@ -58,10 +58,10 @@ exports.createMember = catchAsync(async (req, res, next) => {
 exports.deleteMember = catchAsync(async (req, res, next) => {
   const member = await Member.findByIdAndDelete(req.params.id);
 
-    if (!member) {
-      return next(new AppError("No member found with that ID", 404));
+  if (!member) {
+    return next(new AppError("No member found with that ID", 404));
   }
-  
+
   res.status(204).json({
     status: "success",
     data: null,

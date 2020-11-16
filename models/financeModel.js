@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const financeSchema = new mongoose.Schema({
   service: {
@@ -15,6 +15,6 @@ const financeSchema = new mongoose.Schema({
   },
 });
 
-const Finance = mongoose.model('Finance', financeSchema);
+const Finance = mongoose.model("Finance", financeSchema);
 
 module.exports = Finance;
