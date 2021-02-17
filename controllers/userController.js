@@ -1,34 +1,72 @@
-exports.getAllUsers = (req, res) => {
-  res.status(500).json({
-    status: "error",
-    message: "This route is not yet defined!",
-  });
-};
+const User = require("./../models/userModel");
+const catchAsync = require("./../utile/catchAsync");
+const AppError = require("./../utile/appError");
 
-exports.getUser = (req, res) => {
-  res.status(500).json({
-    status: "error",
-    message: "this route is not yet defined!",
-  });
-};
+//get all users
+exports.getAllUsers = catchAsync(async (req, res) => {
+  const users = await User.find();
 
-exports.createUser = (req, res) => {
-  res.status(500).json({
-    status: "error",
-    message: "this route is not yet defined!",
+  res.status(200).json({
+    status: "success",
+    results: users.length,
+    data: {
+      users,
+    },
   });
-};
+});
 
-exports.updateUser = (req, res) => {
-  res.status(500).json({
-    status: "error",
-    message: "this route is not yet defined!",
-  });
-};
+exports.getUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
 
-exports.deleteUser = (req, res) => {
-  res.status(500).json({
-    status: "error",
-    message: "this route is not yet defined!",
+  if (!user) {
+    return next(new AppError("No user found with that ID", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      user,
+    },
   });
-};
+});
+
+exports.createUser = catchAsync(async (req, res) => {
+  const newUser = await User.create(req.body);
+
+  res.status(201).json({
+    status: "success",
+    data: {
+      user: newUser,
+    },
+  });
+});
+
+exports.updateUser = catchAsync(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!user) {
+    return next(new AppError("No user found with that ID", 404));
+  }
+
+  res.status(201).json({
+    status: "success",
+    data: {
+      user,
+    },
+  });
+});
+
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  const user = await User.findByIdAndDelete(req.params.id);
+
+  if (!user) {
+    return next(new AppError("No user found with that ID", 404));
+  }
+  res.status(204).json({
+    status: "success",
+    data: null,
+  });
+});
